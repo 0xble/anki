@@ -6,3 +6,6 @@
 	path = ftl/qt-repo
 	url = https://github.com/ankitects/anki-desktop-ftl.git
 	shallow = true
+[submodule "addons/review_clickable_tags"]
+	path = addons/review_clickable_tags
+	url = https://github.com/0xble/anki-review-clickable-tags.git
