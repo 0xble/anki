@@ -1,7 +1,10 @@
 # Custom Add-ons
 
-This folder stores custom Anki add-ons tracked in the `~/Repos/anki` fork.
+This folder stores custom Anki add-ons as git submodules under the `~/Repos/anki` fork.
 Workspace path: `~/Repos/anki/addons/`
+
+Each add-on has its own repository and history, while `~/Repos/anki` pins the exact
+submodule commit used locally.
 
 Runtime load path remains:
 `~/Library/Application Support/Anki2/addons21/`
