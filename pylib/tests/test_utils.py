@@ -42,6 +42,8 @@ def test_int_version_to_str(ver, expected):
         ("23.09.1b2", 230901),
         ("23.09.1rc3", 230901),
         ("26.05b1", 260500),
+        # fork suffixes decode to the same int as the base release
+        ("25.09.2-0xble.1.0.0", 250902),
     ],
 )
 def test_int_version(version, expected):
