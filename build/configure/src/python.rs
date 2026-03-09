@@ -17,6 +17,8 @@ use ninja_gen::Build;
 /// Normalize version string by removing leading zeros from numeric parts
 /// while preserving pre-release markers (b1, rc2, a3, etc.)
 fn normalize_version(version: &str) -> String {
+    let version = version.replace("-0xble", "+0xble");
+
     version
         .split('.')
         .map(|part| {
@@ -238,5 +240,14 @@ mod tests {
         assert_eq!(normalize_version("2.1.0a3"), "2.1.0a3");
         assert_eq!(normalize_version("1.2.3beta1"), "1.2.3beta1");
         assert_eq!(normalize_version("1.2.3alpha1"), "1.2.3alpha1");
+    }
+
+    #[test]
+    fn test_normalize_version_with_fork_suffix() {
+        assert_eq!(
+            normalize_version("25.09.2-0xble.1.0.0"),
+            "25.9.2+0xble.1.0.0"
+        );
+        assert_eq!(normalize_version("25.09.2-0xble.1"), "25.9.2+0xble.1");
     }
 }
