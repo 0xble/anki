@@ -61,7 +61,7 @@ from anki._backend import RustBackend
 from anki.buildinfo import version as _version
 from anki.collection import Collection
 from anki.consts import HELP_SITE
-from anki.utils import checksum, is_gnome, is_lin, is_mac
+from anki.utils import checksum, int_version, int_version_to_str, is_gnome, is_lin, is_mac
 from aqt import gui_hooks
 from aqt.log import setup_logging
 from aqt.qt import *
@@ -71,8 +71,12 @@ from aqt.utils import TR, tr
 if TYPE_CHECKING:
     import aqt.profiles
 
+_addon_compat_version = (
+    int_version_to_str(int_version()) if "-0xble." in _version else _version
+)
+
 # compat aliases
-anki.version = _version  # type: ignore
+anki.version = _addon_compat_version  # type: ignore
 anki.Collection = Collection  # type: ignore
 
 # we want to be able to print unicode debug info to console without
@@ -86,7 +90,7 @@ except AttributeError:
         # writer will be overwritten when ErrorHandler is initialized.
         sys.stderr = sys.stdout = open(os.devnull, "w", encoding="utf8")
 
-appVersion = _version
+appVersion = _addon_compat_version
 appWebsite = "https://apps.ankiweb.net/"
 appWebsiteDownloadSection = "https://apps.ankiweb.net/#download"
 appDonate = "https://docs.ankiweb.net/contrib.html"
