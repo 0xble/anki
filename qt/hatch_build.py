@@ -2,6 +2,7 @@
 # License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any, Dict
@@ -49,6 +50,8 @@ class CustomBuildHook(BuildHookInterface):
             if version_file.exists():
                 actual_version = version_file.read_text().strip()
 
+        actual_version = normalize_python_package_version(actual_version)
+
         # Only add exact version for real releases, not editable installs
         if actual_version != "editable":
             dependencies.append(f"anki=={actual_version}")
@@ -76,3 +79,8 @@ class CustomBuildHook(BuildHookInterface):
         if path.name.startswith("tsconfig"):
             return True
         return False
+
+
+def normalize_python_package_version(version: str) -> str:
+    """Convert the fork suffix to a PEP 440 local version segment."""
+    return re.sub(r"-0xble(?=\.|$)", "+0xble", version, count=1)
