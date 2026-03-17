@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "manual: build via make"
+echo "cd ~/Repos/anki && make run"
