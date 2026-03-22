@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+bin_path="$HOME/.local/bin/anki"
+
+[ -x "$bin_path" ]
+"$bin_path" --help >/dev/null
+
+echo "smoke ok: anki"
